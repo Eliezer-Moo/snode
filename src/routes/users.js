@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { getAll, createOne, updateOne, getOne, deleteOne }    = require('../controllers/attendance')
+const { getAll, createOne, updateOne, getOne, deleteOne }    = require('../controllers/users')
 
 router.get('/', getAll)
 

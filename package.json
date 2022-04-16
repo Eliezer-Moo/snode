@@ -4,7 +4,7 @@
     "description": "second project with node ",
     "main": "app.js",
     "scripts": {
-        "start": "nodemon src/app",
+        "start": "nodemon index",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
