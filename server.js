@@ -7,6 +7,8 @@ const attendanceRouter = require('./src/routes/attendance')
 const membersRouter = require('./src/routes/members')
 const usersRouter = require('./src/routes/users')
 
+app.use(express.json())
+
 app.use('/attendance', attendanceRouter)
 app.use('/members', membersRouter)
 app.use('/users', usersRouter)

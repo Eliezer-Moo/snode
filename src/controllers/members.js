@@ -1,8 +1,15 @@
+const { mongoModels: {
+    memberModel
+}} = require('../../databases')
+
 module.exports = {
     getAll: (req, res) => {
         res.send('get all members');
     },
-    createOne: (req, res) => {
+    createOne: async (req, res) => {
+        const { name, lastName, email, birthDate } = req.body;
+        const newMember = new memberModel({ name, lastName, email, birthDate });
+        await newMember.save();
         res.send('create one member');
     },
     /* getOne: (req, res) => {

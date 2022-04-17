@@ -27,9 +27,9 @@ const attendanceSchema = new mongoose.Schema({
     sDomingo: {
         type: boolean
     },
-    memberID: [{
+    member: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Member'
+        ref: 'Members'
     }]
 })
 
