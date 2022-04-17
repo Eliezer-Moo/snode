@@ -22,4 +22,9 @@ const connect = async () => {
   }
 }
 
-module.exports = { connect, validateConnection }
+const disconnect = async () => {
+  await mongoose.connection.close()
+  return validateConnection()
+}
+
+module.exports = { connect, validateConnection, disconnect }
