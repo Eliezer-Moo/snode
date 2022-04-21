@@ -7,4 +7,4 @@ const schema = Joi.object({
     paswword: Joi.string().required()
 })
 
-module.exports = {  schema }
+module.exports = schema 

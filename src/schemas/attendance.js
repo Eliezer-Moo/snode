@@ -12,4 +12,4 @@ const schema = Joi.object({
     member : Joi.string(),
 })
 
-module.exports = {  schema }
+module.exports =  schema 

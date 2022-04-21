@@ -7,4 +7,4 @@ const schema = Joi.object({
   birthDate: Joi.date().required(),
 });
 
-module.exports = { schema };
+module.exports =  schema 
