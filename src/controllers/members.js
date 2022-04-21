@@ -3,8 +3,10 @@ const { mongoModels: {
 }} = require('../../databases')
 
 module.exports = {
-    getAll: (req, res) => {
-        res.send('get all members');
+    getAll: async (req, res) => {
+        const members = await memberModel.find();
+        res.json(members);
+        //res.send('get all members');
     },
     createOne: async (req, res) => {
         const { name, lastName, email, birthDate } = req.body;
