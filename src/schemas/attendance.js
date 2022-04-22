@@ -8,8 +8,7 @@ const schema = Joi.object({
     Consa : Joi.boolean(),
     sJueves : Joi.boolean(),
     dominical : Joi.boolean(),
-    sDomingo : Joi.boolean(),
-    member : Joi.string(),
+    sDomingo : Joi.boolean()
 })
 
 module.exports =  schema 

@@ -26,5 +26,11 @@ module.exports = {
         const { id } = req.params
         await memberModel.findByIdAndDelete(id)
         res.send(`member has been deleted`);
+    },
+    assignAtendance: async (req, res) => {
+        const { id } = req.params
+        const { attendance } = req.body
+        await memberModel.findByIdAndUpdate(id,{ $push: { attendances: attendance }})
+        res.send(`member has been updated`);
     }
 };

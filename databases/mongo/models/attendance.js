@@ -26,11 +26,7 @@ const attendanceSchema = new mongoose.Schema({
     },
     sDomingo: {
         type: boolean
-    },
-    member: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Members'
-    }]
+    }
 })
 
 module.exports = mongoose.model('Attendance', attendanceSchema)

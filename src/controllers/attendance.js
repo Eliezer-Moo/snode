@@ -6,8 +6,8 @@ module.exports = {
         res.json(attendances)
     },
     createOne: async (req, res) => {
-        const { date, oCinco, oNueve, oSeis, Consa, sJueves, dominical, sDomingo, member } = req.body
-        const newAttendance = new attendanceModel({ date, oCinco, oNueve, oSeis, Consa, sJueves, dominical, sDomingo, member })
+        const { date, oCinco, oNueve, oSeis, Consa, sJueves, dominical, sDomingo } = req.body
+        const newAttendance = new attendanceModel({ date, oCinco, oNueve, oSeis, Consa, sJueves, dominical, sDomingo })
         await newAttendance.save()
         res.send(`attendance has been created`);
     },
@@ -16,8 +16,8 @@ module.exports = {
     }, */
     updateOne: async (req, res) => {
         const { id } = req.params
-        const { date, oCinco, oNueve, oSeis, Consa, sJueves, dominical, sDomingo, member } = req.body
-        await attendanceModel.findByIdAndUpdate(id,{ $set: { date, oCinco, oNueve, oSeis, Consa, sJueves, dominical, sDomingo, member }})
+        const { date, oCinco, oNueve, oSeis, Consa, sJueves, dominical, sDomingo } = req.body
+        await attendanceModel.findByIdAndUpdate(id,{ $set: { date, oCinco, oNueve, oSeis, Consa, sJueves, dominical, sDomingo }})
 
         res.send(`attendance has been updated`);
     },

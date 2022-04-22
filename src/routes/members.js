@@ -9,6 +9,7 @@ const {
   updateOne,
   getOne,
   deleteOne,
+  assignAtendance
 } = require("../controllers/members");
 
 router.get("/", getAll);
@@ -18,6 +19,7 @@ router.get("/", getAll);
 router.post("/", validate(membersSchema), createOne);
 
 router.put("/:id", validate(membersSchema), updateOne);
+router.put("/assignAttendance/:id", assignAtendance);
 
 router.delete("/:id", deleteOne);
 
