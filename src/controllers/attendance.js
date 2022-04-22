@@ -1,17 +1,29 @@
+const { mongoModels:{ attendanceModel } } = require('../../databases');
+
 module.exports = {
-    getAll: (req, res) => {
-        res.send('get all attendances');
+    getAll: async (req, res) => {
+        const attendances = await attendanceModel.find()
+        res.json(attendances)
     },
-    createOne: (req, res) => {
-        res.send('create one attendance');
+    createOne: async (req, res) => {
+        const { date, oCinco, oNueve, oSeis, Consa, sJueves, dominical, sDomingo, member } = req.body
+        const newAttendance = new attendanceModel({ date, oCinco, oNueve, oSeis, Consa, sJueves, dominical, sDomingo, member })
+        await newAttendance.save()
+        res.send(`attendance has been created`);
     },
     /* getOne: (req, res) => {
         res.send('get one attendance');
     }, */
-    updateOne: (req, res) => {
-        res.send('update one attendance');
+    updateOne: async (req, res) => {
+        const { id } = req.params
+        const { date, oCinco, oNueve, oSeis, Consa, sJueves, dominical, sDomingo, member } = req.body
+        await attendanceModel.findByIdAndUpdate(id,{ $set: { date, oCinco, oNueve, oSeis, Consa, sJueves, dominical, sDomingo, member }})
+
+        res.send(`attendance has been updated`);
     },
-    deleteOne: (req, res) => {
+    deleteOne: async (req, res) => {
+        const { id } = req.params
+        await attendanceModel.findByIdAndDelete(id)
         res.send('delete one attendance');
     }
 };
