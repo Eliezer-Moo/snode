@@ -1,5 +1,4 @@
 require('dotenv').config()
-
 const { 
     environment: {validateEnv}
 } = require('./utils')
@@ -10,6 +9,7 @@ const { mongoDBHelper } = require('./helpers');
 (async () => {
     await mongoDBHelper.connect();
     require('./server');
+    if(+process.argv[2] ) require('./databases/mongo/fakedata')();
 })();
 
 process.on('SIGINT', () => {
