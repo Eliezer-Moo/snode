@@ -4,7 +4,6 @@ module.exports = {
     getAll: async (req, res) => {
         const members = await memberModel.find();
         res.json(members);
-        //res.send('get all members');
     },
     createOne: async (req, res) => {
         const { name, lastName, email, birthDate } = req.body;
@@ -30,7 +29,7 @@ module.exports = {
     assignAtendance: async (req, res) => {
         const { id } = req.params
         const { attendance } = req.body
-        await memberModel.findByIdAndUpdate(id,{ $push: { attendances: attendance }})
-        res.send(`member has been updated`);
+        const addAtendance  = await memberModel.findByIdAndUpdate(id,{ $push: { attendances: attendance }})
+        res.send(`${addAtendance.name} ${addAtendance.lastName} has been added to attendances`);
     }
 };

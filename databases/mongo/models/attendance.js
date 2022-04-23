@@ -29,4 +29,6 @@ const attendanceSchema = new mongoose.Schema({
     }
 })
 
+attendanceSchema.plugin(require('mongoose-autopopulate'))
+
 module.exports = mongoose.model('Attendance', attendanceSchema)

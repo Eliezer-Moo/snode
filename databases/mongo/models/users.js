@@ -8,5 +8,7 @@ const usersSchema = new Schema({
     password: { type: String, required: true },
 })
 
+usersSchema.plugin(require('mongoose-autopopulate'))
+
 const Users = mongoose.model('Users', usersSchema)
 module.exports = Users
