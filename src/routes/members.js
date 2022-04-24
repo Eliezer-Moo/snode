@@ -5,6 +5,7 @@ const validate = require("../middlewares/validateData");
 
 const {
   getAll,
+  getbyname,
   createOne,
   updateOne,
   getOne,
@@ -13,14 +14,11 @@ const {
 } = require("../controllers/members");
 
 router.get("/", getAll);
-
-/* router.get('/:id', getOne) */
-
+router.get("/getbyname/:name", getbyname);
+router.get('/:id', getOne);
 router.post("/", validate(membersSchema), createOne);
-
 router.put("/:id", validate(membersSchema), updateOne);
 router.put("/assignAttendance/:id", assignAtendance);
-
 router.delete("/:id", deleteOne);
 
 module.exports = router;

@@ -8,6 +8,7 @@ module.exports = async () => {
         lastName: faker.name.lastName(),
         email: faker.internet.email(),
         birthDate: faker.date.past(),
+        status: faker.random.boolean(),
      })
      await newMember.save()
     }

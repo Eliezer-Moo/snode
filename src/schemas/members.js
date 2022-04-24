@@ -5,6 +5,7 @@ const schema = Joi.object({
   lastName: Joi.string().required(),
   email: Joi.string().email().required(),
   birthDate: Joi.date().required(),
+  status: Joi.boolean().required(),
 });
 
 module.exports =  schema 

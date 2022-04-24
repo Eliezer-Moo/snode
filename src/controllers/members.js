@@ -2,8 +2,13 @@ const { mongoModels: { memberModel }} = require('../../databases')
 
 module.exports = {
     getAll: async (req, res) => {
-        const members = await memberModel.find();
+        const members = await memberModel.find({},{__v:0});
         res.json(members);
+    },
+    getbyname: async (req, res) => {
+        const { name } = req.params;
+        const memberfind = await memberModel.find({ name});
+        res.json(memberfind);
     },
     createOne: async (req, res) => {
         const { name, lastName, email, birthDate } = req.body;
@@ -11,9 +16,15 @@ module.exports = {
         await newMember.save();
         res.send(`member ${name} ${lastName} has been created`);
     },
-    /* getOne: (req, res) => {
-        res.send('get one member');
-    }, */
+    getOne: (req, res) => {
+        const { id } = req.params
+        memberModel.findById(id, (err, member) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(member);
+        });
+    },
     updateOne: async (req, res) => {
         const { id } = req.params
         const { name, lastName, email, birthDate } = req.body
