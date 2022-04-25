@@ -2,7 +2,7 @@ const { mongoModels: { memberModel }} = require('../../databases')
 
 module.exports = {
     getAll: async (req, res) => {
-        const members = await memberModel.find({},{__v:0});
+        const members = await memberModel.find({},{__v:0}).populate('attendances');
         res.json(members);
     },
     getbyname: async (req, res) => {
@@ -18,12 +18,12 @@ module.exports = {
     },
     getOne: (req, res) => {
         const { id } = req.params
-        memberModel.findById(id, (err, member) => {
+        memberModel.findById(id).populate('attendances').exec((err, member) => {
             if (err) {
-                res.send(err);
+                res.send(err)
             }
-            res.json(member);
-        });
+            res.json(member)
+        })
     },
     updateOne: async (req, res) => {
         const { id } = req.params

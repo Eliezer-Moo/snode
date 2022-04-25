@@ -1,4 +1,5 @@
 const { mongoModels:{ userModel } } = require('../../databases')
+const { bcryptHelper:{ hasherPassword } } = require('../../helpers')
 
 module.exports = {
     getAll: async (req, res) => {
@@ -7,13 +8,22 @@ module.exports = {
     },
     createOne: async (req, res) => {
         const { name, lastName, email, password } = req.body
-        const newUser = new userModel({ name, lastName, email, password })
+        const encryptedPassword = await hasherPassword(password)
+        const newUser = new userModel({ name, lastName, email, encryptedPassword })
         await newUser.save()
         res.send(`user ${name} ${lastName} has been created`)
     },
-    /* getOne: (req, res) => {
+    signup: async (req, res) => {
+        const { name, lastName, email, password } = req.body;
+        const encryptedPassword = await hasherPassword(password);
+        const newUser = new userModel({ name, lastName, email, password:encryptedPassword });
+        console.log(encryptedPassword)
+        await newUser.save();
+        res.send(`user ${name} ${lastName} has been created`);
+    },
+    signin: (req, res) => {
         res.send('get one user');
-    }, */
+    },
     updateOne: async (req, res) => {
         const { id } = req.params
         const { name, lastName, email, password } = req.body
