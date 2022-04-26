@@ -8,9 +8,13 @@ const getSalt = async () => {
 
 const hasherPassword = async (password) => {
     const salt = await getSalt();
-    console.log(salt);
+    //console.log(salt);
     return bcrypt.hashSync(password, salt)
 }
 
+const comparePassword = async (password, encryptedPassword) => {
+    return await bcrypt.compareSync(password, encryptedPassword)
+}
 
-module.exports = { hasherPassword }
+
+module.exports = { hasherPassword, comparePassword }

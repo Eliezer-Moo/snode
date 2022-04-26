@@ -1,35 +1,35 @@
+const jwt = require('jsonwebtoken')
 const { mongoModels:{ userModel } } = require('../../databases')
-const { bcryptHelper:{ hasherPassword } } = require('../../helpers')
+const { bcryptHelper:{ hasherPassword, comparePassword } } = require('../../helpers')
+const{ jwtSecret } = require('../../config')
 
 module.exports = {
     getAll: async (req, res) => {
         const users = await userModel.find()
         res.json(users)
     },
-    /* createOne: async (req, res) => {
-        const { name, lastName, email, password } = req.body
-        const encryptedPassword = await hasherPassword(password)
-        const newUser = new userModel({ name, lastName, email, encryptedPassword })
-        await newUser.save()
-        res.send(`user ${name} ${lastName} has been created`)
-    }, */
     signup: async (req, res) => {
         try {
             const { name, lastName, email, password } = req.body;
-            console.log(req.body)
             const encryptedPassword = await hasherPassword(req.body.password);
-            console.log(encryptedPassword)
             const newUser = new userModel({ name, lastName, email, password:encryptedPassword });
-            console.log(newUser)
             await newUser.save();
             res.send(`user ${name} ${lastName} has been created`);
             
         } catch (error) {
-            res.send(error);
+            res.send(error.message);
         }
     },
-    signin: (req, res) => {
-        res.send('get one user');
+    signin: async (req, res) => {
+        const {name, lastName, email, password } = req.body;
+        const user = await userModel.findOne({ email });
+        if (!user) return res.status(404).send('User not found');
+        const isPasswordValid = await comparePassword(password, user.password);
+        if (!isPasswordValid) return res.status(401).send('email or Password invalid');
+        const token = jwt.sign(JSON.stringify(user), jwtSecret);
+        //console.log(token);
+        res.json({ message: `${name} ${lastName} welcome` ,token });
+
     },
     updateOne: async (req, res) => {
         const { id } = req.params
