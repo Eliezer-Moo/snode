@@ -9,7 +9,7 @@ router.get('/', getAll)
 
 /* router.get('/:id', getOne) */
 
-router.post('/', validate(usersSchema), createOne)
+/* router.post('/', validate(usersSchema), createOne) */
 router.post('/signup', validate(usersSchema), signup)
 router.post('/signin', validate(usersSchema), signin)
 

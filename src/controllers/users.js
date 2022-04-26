@@ -6,20 +6,27 @@ module.exports = {
         const users = await userModel.find()
         res.json(users)
     },
-    createOne: async (req, res) => {
+    /* createOne: async (req, res) => {
         const { name, lastName, email, password } = req.body
         const encryptedPassword = await hasherPassword(password)
         const newUser = new userModel({ name, lastName, email, encryptedPassword })
         await newUser.save()
         res.send(`user ${name} ${lastName} has been created`)
-    },
+    }, */
     signup: async (req, res) => {
-        const { name, lastName, email, password } = req.body;
-        const encryptedPassword = await hasherPassword(password);
-        const newUser = new userModel({ name, lastName, email, password:encryptedPassword });
-        console.log(encryptedPassword)
-        await newUser.save();
-        res.send(`user ${name} ${lastName} has been created`);
+        try {
+            const { name, lastName, email, password } = req.body;
+            console.log(req.body)
+            const encryptedPassword = await hasherPassword(req.body.password);
+            console.log(encryptedPassword)
+            const newUser = new userModel({ name, lastName, email, password:encryptedPassword });
+            console.log(newUser)
+            await newUser.save();
+            res.send(`user ${name} ${lastName} has been created`);
+            
+        } catch (error) {
+            res.send(error);
+        }
     },
     signin: (req, res) => {
         res.send('get one user');
