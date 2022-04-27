@@ -11,8 +11,8 @@ module.exports = {
         res.json(memberfind);
     },
     createOne: async (req, res) => {
-        const { name, lastName, email, birthDate } = req.body;
-        const newMember = new memberModel({ name, lastName, email, birthDate });
+        const { name, lastName, email, birthDate, status } = req.body;
+        const newMember = new memberModel({ name, lastName, email, birthDate, status, createdBy: req.userData._id });
         await newMember.save();
         res.send(`member ${name} ${lastName} has been created`);
     },
@@ -26,9 +26,10 @@ module.exports = {
         })
     },
     updateOne: async (req, res) => {
+        console.log(req.userData)
         const { id } = req.params
-        const { name, lastName, email, birthDate } = req.body
-        await memberModel.findByIdAndUpdate(id,{ $set: { name, lastName, email, birthDate }})
+        const { name, lastName, email, birthDate,status } = req.body
+        await memberModel.findByIdAndUpdate(id,{ $set: { name, lastName, email, birthDate, status, updatedBy: req.userData._id }})
 
         res.send(`member ${name} ${lastName} has been updated`);
     },

@@ -1,7 +1,7 @@
-const express = require("express");
-const router = express.Router();
-const membersSchema = require("../schemas/members");
-const validate = require("../middlewares/validateData");
+const express = require("express")
+const router = express.Router()
+const membersSchema = require("../schemas/members")
+const validate = require("../middlewares/validateData")
 
 const {
   getAll,

@@ -6,6 +6,9 @@ const { port } = require('./config')
 const attendanceRouter = require('./src/routes/attendance')
 const membersRouter = require('./src/routes/members')
 const usersRouter = require('./src/routes/users')
+const validateAuth = require("./src/middlewares/validateAuth")
+
+app.use(validateAuth)
 
 app.use(express.json())
 
